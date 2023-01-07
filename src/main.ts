@@ -13,5 +13,6 @@ async function bootstrap() {
   );
   await app.listen(port);
   console.log(`🚀 Server started http://${host}:${port} 🚀🚀🚀`);
+  console.log(`🚀 Server ready at http://${host}:${port}/graphiql`);
 }
 bootstrap();

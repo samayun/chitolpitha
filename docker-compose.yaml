@@ -1,0 +1,55 @@
+version: '3.3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: npm run dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 2023:2023
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - db
+      - redis
+      # - cassandra
+      # - rabbitmq
+      # - neo4j
+  db:
+    image: mongo
+    container_name: chitolpitha-db
+    volumes:
+      - docker:/data/db
+    ports:
+      - 27017:27017
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+
+  # cassandra:
+  #   image: cassandra:3.11
+  #   container_name: chitolpitha-write-db
+  #   ports:
+  #     - 9042:9042
+
+  # rabbitmq:
+  #   image: rabbitmq:3-management
+  #   container_name: chitolpitha-message-queue
+  #   ports:
+  #     - 5672:5672
+  #     - 15672:15672
+  # neo4j:
+  #   image: neo4j:3.5
+  #   container_name: chitolpitha-graphdb
+  #   ports:
+  #     - 7474:7474
+  #     - 7687:7687
+
+volumes:
+  docker:
