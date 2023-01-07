@@ -8,5 +8,4 @@ RUN npm install
 
 COPY . /app/
 
-EXPOSE 2023
 CMD ["npm", "run", "dev"]
