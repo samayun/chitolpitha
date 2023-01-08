@@ -5,6 +5,9 @@
 type Pet {
   """Example field (placeholder)"""
   id: Int!
+
+  """Example field (placeholder)"""
+  age: Int!
 }
 
 type Query {

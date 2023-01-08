@@ -10,9 +10,11 @@ services:
       - .:/app
       - /app/node_modules
     ports:
-      - 2023:2023
+      - ${PORT}:${PORT}
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
+    env_file:
+    - .env
     depends_on:
       - db
       - redis

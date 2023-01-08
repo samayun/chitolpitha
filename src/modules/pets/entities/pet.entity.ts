@@ -4,4 +4,7 @@ import { ObjectType, Field, Int } from '@nestjs/graphql';
 export class Pet {
   @Field(() => Int, { description: 'Example field (placeholder)' })
   id: number;
+
+  @Field(() => Int, { description: 'Example field (placeholder)' })
+  age: number
 }

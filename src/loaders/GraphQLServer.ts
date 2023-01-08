@@ -7,7 +7,7 @@ import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius';
     imports: [
         GraphQLModule.forRoot<MercuriusDriverConfig>({
             driver: MercuriusDriver,
-            graphiql: process.env.NODE_ENV != 'production',
+            graphiql: true || process.env.NODE_ENV != 'production',
             autoSchemaFile: 'src/schema.gql',
         }),
         PetsModule
