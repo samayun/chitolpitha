@@ -37,4 +37,4 @@ lerna-debug.log*
 # CUSTOM
 .env
 tsconfig.build.tsbuildinfo
-./src/schema.gql
+src/schema.gql

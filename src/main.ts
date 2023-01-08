@@ -2,7 +2,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { AppModule } from './app.module';
+import { AppModule } from './app.module'
 import { NestFactory } from '@nestjs/core';
 import { host,port } from './config/server';
 
