@@ -5,4 +5,4 @@ import { AuthResolver } from './auth.resolver';
 @Module({
   providers: [AuthResolver, AuthService]
 })
-export class AuthModule {}
+export default class AuthModule {}

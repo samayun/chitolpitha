@@ -1,16 +1,22 @@
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
+// import AuthModule from '@modules/auth/auth.module'
 import { LoadGraphQLServer } from '@loaders/GraphQLServer';
-import { UsersModule } from './modules/users/users.module';
-import { AuthModule } from './modules/auth/auth.module';
 import { AppConfigModule } from '@config/appConfig.module';
+import { LoaderModule } from '@loaders/LoaderModule';
 
 
 @Module({
-  imports: [AppConfigModule,LoadGraphQLServer,  UsersModule],
+  imports: [
+    AppConfigModule,
+    LoadGraphQLServer,
+    // AuthModule,
+    LoaderModule.forRoot()
+  ],
   controllers: [AppController],
   providers: [AppService]
 })
+export class AppModule { }
 
-export class AppModule {}
+

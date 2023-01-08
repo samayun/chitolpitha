@@ -9,7 +9,7 @@ export class AuthService {
   }
 
   findAll() {
-    return `This action returns all auth`;
+    return [{id: 78}]
   }
 
   findOne(id: number) {
