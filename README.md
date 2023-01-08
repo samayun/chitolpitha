@@ -43,3 +43,18 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+
+
+```graphql
+mutation {
+  signup(signupUserInput: {name: "SAMAYUN", email: "s", password: "A"}) {
+    _id
+    name
+    email
+    phone
+    password
+  }
+}
+
+```
