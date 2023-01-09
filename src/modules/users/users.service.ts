@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
+import { SignupUserInput, UpdateUserInput } from './user.input';
 
 @Injectable()
 export class UsersService {
-  create(signupUserInput: CreateUserInput) {
+  createUser(createUserInput: SignupUserInput) {
     return {
       _id: String(Math.random() * 1000),
-      ...signupUserInput
+      ...createUserInput
     }
   }
 

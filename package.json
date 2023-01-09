@@ -31,9 +31,12 @@
     "@nestjs/graphql": "^10.1.6",
     "@nestjs/jwt": "^10.0.1",
     "@nestjs/mercurius": "^10.1.6",
+    "@nestjs/mongoose": "^9.2.1",
     "@nestjs/platform-fastify": "^9.2.1",
+    "fast-glob": "^3.2.12",
     "graphql": "^16.6.0",
     "mercurius": "^10.5.1",
+    "mongoose": "^6.8.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"

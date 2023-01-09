@@ -1,17 +1,16 @@
+// KEEP ON TOP
 import { Module } from '@nestjs/common';
+import { AppConfigModule } from '@config/appConfig.module';
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
-// import AuthModule from '@modules/auth/auth.module'
-import { LoadGraphQLServer } from '@loaders/GraphQLServer';
-import { AppConfigModule } from '@config/appConfig.module';
+// import { MongooseModule } from '@nestjs/mongoose';
 import { LoaderModule } from '@loaders/LoaderModule';
-
+import { LoadGraphQLServer } from '@loaders/GraphQLServer';
 
 @Module({
   imports: [
     AppConfigModule,
     LoadGraphQLServer,
-    // AuthModule,
     LoaderModule.forRoot()
   ],
   controllers: [AppController],

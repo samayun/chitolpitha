@@ -37,3 +37,5 @@ lerna-debug.log*
 
 # .env
 tsconfig.build.tsbuildinfo
+volumes
+.pnpm-store

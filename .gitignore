@@ -38,3 +38,5 @@ lerna-debug.log*
 .env
 tsconfig.build.tsbuildinfo
 src/schema.gql
+volumes
+.pnpm-store

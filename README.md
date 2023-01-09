@@ -43,13 +43,16 @@ $ npm run test:cov
 
 ```graphql
 mutation {
-  signup(signupUserInput: {name: "SAMAYUN", email: "s", password: "A"}) {
-    _id
-    name
-    email
-    phone
-    password
+  signup(signupUserInput: {name: "SAMAYUN", email: "samayun@gmail.com", password: "123456"}) {
+     accessToken
   }
 }
+
+query {
+  signin(signinUserInput: { email: "samayun@gmail.com", password: "123456"}) {
+     accessToken
+  }
+}
+
 
 ```

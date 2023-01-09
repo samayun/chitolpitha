@@ -11,7 +11,7 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
-  await app.listen(port, '0.0.0.0');
+  await app.listen(port);
   console.log(`🚀 Server started http://${host}:${port} 🚀🚀🚀`);
   console.log(`🚀 Server ready at http://${host}:${port}/graphiql`);
 }

@@ -23,4 +23,7 @@ lint:
 	sudo docker-compose exec app npm run lint
 
 shell:
+	sudo docker-compose exec app sh
+
+generate:
 	sudo docker-compose exec app npm run generate:crud

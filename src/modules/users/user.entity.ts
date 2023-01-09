@@ -12,13 +12,9 @@ export class User {
   email: string;
 
 
-  @Field(() => String, { nullable: true, description: 'phone of the user' })
-  phone: string;
-
-
-  @Field(() => String, {  description: 'password of the user. It should be hidden. use in schema not gql type on production' })
+  @Field(() => String, { nullable: true, description: 'password of the user. It should be hidden. use in schema not gql type on production' })
   password: string;
 
-  @Field(() => String, {nullable: true, description: 'status of the user' })
+  @Field(() => String, { nullable: true, description: 'status of the user' })
   status: string;
 }
