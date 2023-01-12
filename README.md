@@ -6,46 +6,25 @@
        \____|_| |_|___| |_| \___/|_____| |_|  |___| |_| |_| |_/_/   \_\
 
 ```
-<p align="center">
+<!-- <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="docs/terminal.gif" width="400" height="220" alt="Nest Logo" /></a>
 </p>
-
+ -->
 
 ## Description
 Chitolpitha is a scalable, reusable boilerplate which helps to build SASS Application
 
-## Installation
+## Commands and Installation
 
 ```bash
-$ npm install
+
+cp .env.example .env
+
+sudo make build
+
+sudo make logs
+
 ```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
 
 
 ```graphql
