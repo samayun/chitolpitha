@@ -1,11 +1,10 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="docs/terminal.gif" width="200" alt="Nest Logo" /></a>
+  <a href="http://nestjs.com/" target="blank"><img src="docs/terminal.gif" width="400" height="220" alt="Nest Logo" /></a>
 </p>
 
 
 ## Description
-
-2023 Goal project
+Chitolpitha is a scalable, reusable boilerplate which helps to build SASS Application
 
 ## Installation
 
