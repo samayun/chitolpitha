@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
     imports: [
-        GraphQLModule.forRoot<MercuriusDriverConfig>({
-            driver: MercuriusDriver,
-            graphiql: true || process.env.NODE_ENV != 'production',
+        GraphQLModule.forRoot<ApolloDriverConfig>({
+            driver: ApolloDriver,
+            playground: true || process.env.NODE_ENV != 'production',
             autoSchemaFile: 'src/schema.gql',
         })
     ]

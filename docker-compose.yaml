@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+    container_name: chitolpitha-app
     command: npm run dev
     volumes:
       - .:/app
@@ -22,17 +23,25 @@ services:
       # - rabbitmq
       # - neo4j
   db:
-    image: mongo
+    image: mongo:4.4.1
     container_name: chitolpitha-db
     volumes:
-      - docker:/data/db
+      - ./volumes/db:/data
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: chitolpitha
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: chitolpitha
     ports:
-      - 27017:27017
+      - 27016:27017
 
   redis:
     image: redis
+    container_name: chitolpitha-cache
+    volumes:
+      - ./volumes/redis/data:/data
+      - ./volumes/redis/redis-conf:/usr/local/etc/redis/redis.conf
     ports:
-      - 6379:6379
+      - 6389:6379
 
   # cassandra:
   #   image: cassandra:3.11
@@ -53,5 +62,3 @@ services:
   #     - 7474:7474
   #     - 7687:7687
 
-volumes:
-  docker:

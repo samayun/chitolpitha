@@ -40,3 +40,4 @@ tsconfig.build.tsbuildinfo
 src/schema.gql
 volumes
 .pnpm-store
+docker
