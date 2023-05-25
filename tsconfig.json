@@ -10,13 +10,14 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "paths": {
+      "@*": ["*"],
       "@config/*": ["./config/*"],
       "@commmon/*": ["./commmon/*"],
       "@loaders/*": ["./loaders/*"],
       "@chitolpitha/auth/*": ["./modules/auth/*"],
       "@chitolpitha/users/*": ["./modules/users/*"],
       "@chitolpitha/category/*": ["./modules/category/*"],
-      "@chitolpitha/*": ["./modules/*"],
+      "@chitolpitha/*": ["./modules/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

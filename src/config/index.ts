@@ -32,7 +32,7 @@ const config = {
   },
   redis: {
     url: env<string>('REDIS_URL'),
-    host: env('REDIS_HOST', 'redis'),
+    host: env<string>('REDIS_HOST', 'redis'),
     port: env<number>('REDIS_PORT', 6379),
     username: env('REDIS_USER'),
     password: env('REDIS_PASSWORD'),
