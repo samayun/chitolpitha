@@ -15,7 +15,7 @@ services:
     environment:
       - NODE_ENV=development
     env_file:
-    - .env
+      - .env
     depends_on:
       - db
       - redis
@@ -35,13 +35,31 @@ services:
       - 27016:27017
 
   redis:
-    image: redis
+    image: 'redis/redis-stack:latest'
     container_name: chitolpitha-cache
+    restart: unless-stopped
+    # command: redis-server
     volumes:
-      - ./volumes/redis/data:/data
-      - ./volumes/redis/redis-conf:/usr/local/etc/redis/redis.conf
+      - ./volumes/redis-stack/data:/data
+      - ./volumes/redis-stack/redis-conf:/usr/local/etc/redis/redis.conf
+    # environment:
+    #   - REDIS_REPLICATION_MODE=master
+    # deploy:
+    #   replicas: 1
+    #   restart_policy:
+    #     condition: on-failure
     ports:
-      - 6389:6379
+      - ${REDIS_PORT:-6389}:6379
+
+  redis-commander:
+    container_name: chitolpitha-cache-admin
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - ${REDIS_COMMANDER_PORT:-8389}:8081
 
   # cassandra:
   #   image: cassandra:3.11
@@ -61,4 +79,3 @@ services:
   #   ports:
   #     - 7474:7474
   #     - 7687:7687
-

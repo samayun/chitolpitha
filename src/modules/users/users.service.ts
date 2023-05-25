@@ -6,23 +6,23 @@ export class UsersService {
   createUser(createUserInput: SignupUserInput) {
     return {
       _id: String(Math.random() * 1000),
-      ...createUserInput
-    }
+      ...createUserInput,
+    };
   }
 
   findAll() {
-    return [{id: 88}]
+    return [{ id: 88 }];
   }
 
   findOne(id: string) {
-    return {id: id}
+    return { id: id };
   }
 
   update(id: string, updateUserInput: UpdateUserInput) {
     return {
       id,
-      ...updateUserInput
-    }
+      ...updateUserInput,
+    };
   }
 
   remove(id: string) {

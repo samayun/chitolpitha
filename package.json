@@ -36,6 +36,7 @@
     "apollo-server-express": "^3.11.1",
     "fast-glob": "^3.2.12",
     "graphql": "^16.6.0",
+    "graphql-redis-subscriptions": "^2.6.0",
     "graphql-tools": "^8.3.18",
     "mercurius": "^10.5.1",
     "mongoose": "^6.8.3",
