@@ -11,7 +11,7 @@ export class UsersService {
   }
 
   findAll() {
-    return [{ id: 88 }];
+    return [{ id: 88, name: 'SALMAN' }];
   }
 
   findOne(id: string) {

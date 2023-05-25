@@ -1,9 +1,9 @@
 import config from '@config/index';
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices';
+import { RedisOptions, Transport } from '@nestjs/microservices';
 
-export const getRedisOptions = {
+export const getRedisOptions: RedisOptions = {
   transport: Transport.REDIS,
   options: {
     // url: config.redis.url,
@@ -11,6 +11,7 @@ export const getRedisOptions = {
     port: config.redis.port,
   },
 };
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -21,6 +22,7 @@ async function bootstrap() {
   await app.startAllMicroservices();
 
   await app.listen(config.server.port);
+
   console.log(
     `🚀 Server started http://${config.server.host}:${config.server.port} 🚀🚀🚀`,
   );

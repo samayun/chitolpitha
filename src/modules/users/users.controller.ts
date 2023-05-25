@@ -1,11 +1,14 @@
+import { Controller } from '@nestjs/common';
+import { UsersService } from './users.service';
 import { MessagePattern } from '@nestjs/microservices';
 
-// @MessagePattern('message')
+@Controller('users')
 export class UserControler {
-  @MessagePattern('message')
-  handleMessage(message: any) {
-    console.log('Received message:', message);
-    // Process the message as needed
-    return message;
+  constructor(private readonly usersService: UsersService) {}
+
+  @MessagePattern({ topic: 'users' })
+  async handleMessage(users: any) {
+    console.log('Received users:', users);
+    return this.usersService.findAll();
   }
 }

@@ -6,10 +6,17 @@ import { AppController } from './app.controller';
 // import { MongooseModule } from '@nestjs/mongoose';
 import LoaderModule from '@chitolpitha/domain.loader';
 import { LoadGraphQLServer } from '@loaders/GraphQLServer';
+import { MessageBrokerModule } from '@message-broker.module';
 
 @Module({
-  imports: [AppConfigModule, LoadGraphQLServer, LoaderModule.forRoot()],
+  imports: [
+    AppConfigModule,
+    LoadGraphQLServer,
+    LoaderModule.forRoot(),
+    MessageBrokerModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppController, AppService],
+  exports: [AppController, AppService],
 })
 export class AppModule {}
