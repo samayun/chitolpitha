@@ -4,7 +4,7 @@ import {
   ClientProxyFactory,
 } from '@nestjs/microservices';
 import { Request } from 'express';
-import { getRedisOptions } from '@main';
+import { getRedisOptions } from '@config';
 import { AppService } from './app.service';
 import { Controller, Get, Req } from '@nestjs/common';
 
@@ -22,10 +22,11 @@ export class AppController {
   }
 
   @Get('/pubsub')
-  tests(@Req() req: Request) {
+  async tests(@Req() req: Request) {
     console.log(this.client);
     const pattern = { topic: 'pubsub' };
     const data = { name: 'REDIS', url: req.originalUrl };
+    console.log({ app: data });
     return this.client.send(pattern, data);
   }
 

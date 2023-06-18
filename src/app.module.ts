@@ -1,12 +1,13 @@
 // KEEP ON TOP
-import { Module } from '@nestjs/common';
+import config from '@config';
 import { AppService } from './app.service';
+import { Module, Logger } from '@nestjs/common';
 import { AppConfigModule } from '@config/config.module';
 import { AppController } from './app.controller';
 // import { MongooseModule } from '@nestjs/mongoose';
 import LoaderModule from '@chitolpitha/domain.loader';
 import { LoadGraphQLServer } from '@loaders/GraphQLServer';
-import { MessageBrokerModule } from '@message-broker.module';
+import { MessageBrokerModule } from '@redis/message-broker/message-broker.module';
 
 @Module({
   imports: [
@@ -19,4 +20,18 @@ import { MessageBrokerModule } from '@message-broker.module';
   providers: [AppController, AppService],
   exports: [AppController, AppService],
 })
-export class AppModule {}
+export class AppModule {
+  onApplicationBootstrap() {
+    Logger.verbose(`>> DB Connected : ${config.db.url} 🔵`);
+
+    if (process.env.NODE_ENV === 'development') {
+      Logger.verbose(
+        `> Documentation is here => ${config.server.host}:${config.server.port}/${config.api.swaggerPrefix} 🟢`,
+      );
+
+      Logger.verbose(
+        `🚀> GraphQL playground is here => ${config.server.host}:${config.server.port}/graphql 🟢`,
+      );
+    }
+  }
+}
