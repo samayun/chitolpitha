@@ -1,4 +1,4 @@
-import { getRedisOptions } from '@main';
+import { getRedisOptions } from '@config';
 import { APP_SERVICE } from '@common/shared/constants';
 import { Global, Module, Provider } from '@nestjs/common';
 import { ClientProxyFactory } from '@nestjs/microservices';

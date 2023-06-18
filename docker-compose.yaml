@@ -49,7 +49,7 @@ services:
     #   restart_policy:
     #     condition: on-failure
     ports:
-      - ${REDIS_PORT:-6389}:6379
+      - ${REDIS_PORT:-6379}:6379
 
   redis-commander:
     container_name: chitolpitha-cache-admin
@@ -60,6 +60,13 @@ services:
       - REDIS_HOSTS=local:redis:6379
     ports:
       - ${REDIS_COMMANDER_PORT:-8389}:8081
+
+  nats:
+    image: nats:latest
+    container_name: chitolpitha-nats
+    ports:
+      - '4222:4222'
+      - '8222:8222'
 
   # cassandra:
   #   image: cassandra:3.11

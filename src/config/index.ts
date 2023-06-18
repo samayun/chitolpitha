@@ -1,3 +1,5 @@
+import { NatsOptions, RedisOptions, Transport } from '@nestjs/microservices';
+
 export function env<T>(key: string, defaultValue: string | number = '') {
   return (process.env[key] as unknown as T) || (defaultValue as unknown as T);
 }
@@ -37,6 +39,29 @@ const config = {
     username: env('REDIS_USER'),
     password: env('REDIS_PASSWORD'),
     db: env('REDIS_DB', 0),
+  },
+  nats: {
+    url: env<string>('NATS_URL', 'nats://nats:4222'),
+  },
+
+  swagger: {
+    title: env<string>('SWAGGER_TITLE', 'Test API'),
+    description: env<string>('SWAGGER_DESCRIPTION', 'The Test API description'),
+  },
+};
+
+export const getRedisOptions: RedisOptions = {
+  transport: Transport.REDIS,
+  options: {
+    // url: config.redis.url,
+    host: config.redis.host,
+    port: config.redis.port,
+  },
+};
+export const getNatsOptions: NatsOptions = {
+  transport: Transport.NATS,
+  options: {
+    servers: config.nats.url,
   },
 };
 
