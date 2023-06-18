@@ -1,3 +1,9 @@
+REDIS=chitolpitha-cache
+
+######################
+###  DEVELOPMENT   ###
+######################
+
 build:
 	sudo docker-compose up --build --detach
 
@@ -24,6 +30,10 @@ lint:
 
 shell:
 	sudo docker-compose exec app sh
+
+
+redis-cli:
+	docker exec -it ${REDIS} redis-cli
 
 generate:
 	sudo docker-compose exec app npm run generate:crud
