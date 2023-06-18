@@ -1,25 +1,23 @@
 import {
+  Ctx,
   Payload,
   ClientProxy,
+  NatsContext,
   EventPattern,
   MessagePattern,
-  ClientProxyFactory,
-  Ctx,
-  NatsContext,
 } from '@nestjs/microservices';
-import { getNatsOptions } from '@config';
 import { TasksService } from './tasks.service';
-import { Controller, Get, Req } from '@nestjs/common';
+import { NATS_CLIENT } from '@nats/nats.module';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { Controller, Get, Inject, Req } from '@nestjs/common';
 
 @Controller('/tasks')
 export class TasksController {
-  client: ClientProxy;
-
-  constructor(private tasksService: TasksService) {
-    this.client = ClientProxyFactory.create(getNatsOptions);
-  }
+  constructor(
+    @Inject(NATS_CLIENT) private client: ClientProxy,
+    private tasksService: TasksService,
+  ) {}
 
   @Get('/pubsub')
   async tests(@Req() req: Request) {

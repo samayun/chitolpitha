@@ -1,6 +1,7 @@
 // KEEP ON TOP
 import config from '@config';
 import { AppService } from './app.service';
+import { NatsModule } from '@nats/nats.module';
 import { Module, Logger } from '@nestjs/common';
 import { AppConfigModule } from '@config/config.module';
 import { AppController } from './app.controller';
@@ -15,6 +16,7 @@ import { MessageBrokerModule } from '@redis/message-broker/message-broker.module
     LoadGraphQLServer,
     LoaderModule.forRoot(),
     MessageBrokerModule,
+    NatsModule,
   ],
   controllers: [AppController],
   providers: [AppController, AppService],

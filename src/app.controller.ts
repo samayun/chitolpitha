@@ -1,20 +1,22 @@
-import {
-  ClientProxy,
-  EventPattern,
-  ClientProxyFactory,
-} from '@nestjs/microservices';
 import { Request } from 'express';
-import { getRedisOptions } from '@config';
 import { AppService } from './app.service';
-import { Controller, Get, Req } from '@nestjs/common';
+// import { getRedisOptions } from '@config';
+import { APP_SERVICE } from '@common/shared/constants';
+import { Controller, Get, Inject, Req } from '@nestjs/common';
+import { ClientProxy, EventPattern } from '@nestjs/microservices';
 
 @Controller()
 export class AppController {
-  client: ClientProxy;
+  // client: ClientProxy;
 
-  constructor(private readonly appService: AppService) {
-    this.client = ClientProxyFactory.create(getRedisOptions);
-  }
+  // constructor(private readonly appService: AppService) {
+  //   this.client = ClientProxyFactory.create(getRedisOptions);
+  // }
+
+  constructor(
+    private readonly appService: AppService,
+    @Inject(APP_SERVICE) private client: ClientProxy,
+  ) {}
 
   @Get()
   getHello() {

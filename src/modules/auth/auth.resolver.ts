@@ -1,7 +1,7 @@
 import { AuthService } from './auth.service';
 import { AccessTokenType } from './auth.entity';
 import { User } from '@chitolpitha/users/user.entity';
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import {
   SignupUserInput,
   SigninUserInput,
