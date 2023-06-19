@@ -1,40 +1,12 @@
-import { Request } from 'express';
 import { AppService } from './app.service';
-// import { getRedisOptions } from '@config';
-import { MESSAGE_BROKER } from '@common/constants';
-import { Controller, Get, Inject, Req } from '@nestjs/common';
-import { ClientProxy, EventPattern } from '@nestjs/microservices';
+import { Controller, Get } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  // client: ClientProxy;
-
-  // constructor(private readonly appService: AppService) {
-  //   this.client = ClientProxyFactory.create(getRedisOptions);
-  // }
-
-  constructor(
-    private readonly appService: AppService,
-    @Inject(MESSAGE_BROKER) private client: ClientProxy,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   @Get()
   getHello() {
     return this.appService.getHello();
-  }
-
-  @Get('/pubsub')
-  async tests(@Req() req: Request) {
-    console.log(this.client);
-    const pattern = { topic: 'pubsub' };
-    const data = { name: 'REDIS', url: req.originalUrl };
-    console.log({ app: data });
-    return this.client.send(pattern, data);
-  }
-
-  @EventPattern({ topic: 'pubsub' })
-  async handleBookCreatedEvent(data: Record<string, unknown>) {
-    console.log(data);
-    return data;
   }
 }

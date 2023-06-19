@@ -11,7 +11,7 @@ export function env<T>(key: string, defaultValue: string | number = '') {
 
 const config = {
   server: {
-    host: env('HOST', 'http://localhost'),
+    host: env<string>('HOST', 'http://localhost'),
     port: env<number>('PORT', 2024),
   },
 

@@ -1,10 +1,12 @@
-import { MESSAGE_BROKER } from '@common/constants';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { REDIS_MESSAGE_BROKER } from '@common/constants';
 
 @Injectable()
 export class AppService {
-  constructor(@Inject(MESSAGE_BROKER) private readonly client: ClientProxy) {}
+  constructor(
+    @Inject(REDIS_MESSAGE_BROKER) private readonly client: ClientProxy,
+  ) {}
 
   getHello() {
     const pattern = { topic: 'users' };

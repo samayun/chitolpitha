@@ -21,15 +21,14 @@ export class TasksController {
 
   @Get('/pubsub')
   async tests(@Req() req: Request) {
-    console.log(this.client);
-    const pattern = { topic: 'pubsub' };
+    const pattern = { topic: 'nats-pubsub' };
     const data = { name: 'NATS', url: req.url };
     return this.client.send(pattern, data);
   }
 
-  @EventPattern({ topic: 'pubsub' })
+  @EventPattern({ topic: 'nats-pubsub' })
   async handleBookCreatedEvent(data: Record<string, unknown>) {
-    console.log({ tasks: data });
+    console.log({ TasksController: data });
     return data;
   }
 

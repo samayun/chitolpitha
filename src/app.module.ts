@@ -5,8 +5,8 @@ import { AppConfigModule } from './config.module';
 import LoaderModule from '@chitolpitha/domain.loader';
 import { LoadGraphQLServer } from '@loaders/GraphQLServer';
 import { MessageBrokerModule } from '@lib/message-brokers';
-import { MESSAGE_BROKER, NATS_CLIENT } from '@common/constants';
 import config, { getNatsOptions, getRedisOptions } from '@config';
+import { REDIS_MESSAGE_BROKER, NATS_CLIENT } from '@common/constants';
 
 @Module({
   imports: [
@@ -14,7 +14,7 @@ import config, { getNatsOptions, getRedisOptions } from '@config';
     LoadGraphQLServer,
     LoaderModule.forRoot(),
     MessageBrokerModule.register(getNatsOptions, NATS_CLIENT),
-    MessageBrokerModule.register(getRedisOptions, MESSAGE_BROKER),
+    MessageBrokerModule.register(getRedisOptions, REDIS_MESSAGE_BROKER),
   ],
   controllers: [AppController],
   providers: [AppController, AppService],
