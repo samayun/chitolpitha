@@ -1,22 +1,21 @@
-// KEEP ON TOP
-import config from '@config';
 import { AppService } from './app.service';
-import { NatsModule } from '@nats/nats.module';
 import { Module, Logger } from '@nestjs/common';
-import { AppConfigModule } from '@config/config.module';
 import { AppController } from './app.controller';
-// import { MongooseModule } from '@nestjs/mongoose';
+import { AppConfigModule } from './config.module';
 import LoaderModule from '@chitolpitha/domain.loader';
 import { LoadGraphQLServer } from '@loaders/GraphQLServer';
-import { MessageBrokerModule } from '@redis/message-broker/message-broker.module';
+import { MESSAGE_BROKER, NATS_CLIENT } from '@common/constants';
+import config, { getNatsOptions, getRedisOptions } from '@config';
+import { NatsModule } from '@lib/message-brokers/nats/nats.module';
+import { RedisMQModule } from '@lib/message-brokers/redis/message-broker.module';
 
 @Module({
   imports: [
     AppConfigModule,
     LoadGraphQLServer,
     LoaderModule.forRoot(),
-    MessageBrokerModule,
-    NatsModule,
+    NatsModule.register(getNatsOptions, NATS_CLIENT),
+    RedisMQModule.register(getRedisOptions, MESSAGE_BROKER),
   ],
   controllers: [AppController],
   providers: [AppController, AppService],

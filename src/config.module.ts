@@ -1,4 +1,3 @@
-// import { config } from '.';
 import { ConfigModule } from '@nestjs/config';
 import { Global, Module } from '@nestjs/common';
 

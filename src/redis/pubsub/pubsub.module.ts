@@ -1,21 +1,19 @@
 import config from '@config';
-import { PUB_SUB } from '@common/shared/constants';
-import { Global, Module, Provider } from '@nestjs/common';
+import { Redis } from 'ioredis';
+import { PUB_SUB } from '@common/constants';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
+import { Scope, Global, Inject, Module, Provider } from '@nestjs/common';
 
 export const PubSubProvider: Provider = {
   provide: PUB_SUB,
+  scope: Scope.DEFAULT,
   useFactory: () => {
-    const pubsub = new RedisPubSub({
-      connection: {
-        host: config.redis.host,
-        port: config.redis.port,
-      },
-      //       publisher: cluster,
-      //       subscriber: cluster,
+    const pubSub = new RedisPubSub({
+      publisher: new Redis(config.redisPublisher),
+      subscriber: new Redis(config.redisSubscriber),
     });
 
-    return pubsub;
+    return pubSub;
   },
 };
 
@@ -24,4 +22,20 @@ export const PubSubProvider: Provider = {
   providers: [PubSubProvider],
   exports: [PubSubProvider],
 })
-export class PubSubModule {}
+export class PubSubModule {
+  constructor(@Inject(PUB_SUB) private pubSub: RedisPubSub) {}
+
+  async onApplicationBootstrap() {
+    // await this.pubSub.publish('test', {
+    //   title: 'ONEK KICHU',
+    // });
+    // await this.pubSub.subscribe('test', (data) => {
+    //   console.log({ data });
+    // });
+    // console.log({
+    //   pubSub: await this.pubSub.subscribe('test', (data) => {
+    //     console.log({ data });
+    //   }),
+    // });
+  }
+}

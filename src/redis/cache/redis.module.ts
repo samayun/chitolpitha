@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { Redis } from 'ioredis';
 import { redisUrl } from '@config/redis';
-import { RedisService } from './redis.cache.service';
+import { RedisService } from './redis.hash.service';
 import { RedisService as RedisJsonService } from './redis.json.service';
 
 export const CacheProvider: Provider = {

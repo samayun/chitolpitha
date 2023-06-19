@@ -1,4 +1,9 @@
-import { NatsOptions, RedisOptions, Transport } from '@nestjs/microservices';
+import {
+  Transport,
+  NatsOptions,
+  RedisOptions as RedisMSOptions,
+} from '@nestjs/microservices';
+import { RedisOptions } from 'ioredis';
 
 export function env<T>(key: string, defaultValue: string | number = '') {
   return (process.env[key] as unknown as T) || (defaultValue as unknown as T);
@@ -21,10 +26,7 @@ const config = {
   },
 
   db: {
-    url: env<string>(
-      'DB_URL',
-      'mongodb://chitolpitha:password@db:27017/chitolpitha',
-    ),
+    url: env<string>('DB_URL', ''),
     type: env('DB_TYPE', 'postgres'),
     host: env('DB_HOST', 'localhost'),
     port: env<number>('DB_PORT', 5432),
@@ -40,6 +42,23 @@ const config = {
     password: env('REDIS_PASSWORD'),
     db: env('REDIS_DB', 0),
   },
+
+  redisPublisher: {
+    host: env('REDIS_HOST', 'redis'),
+    port: env<number>('REDIS_PORT', 6379),
+    username: env('REDIS_USER'),
+    password: env('REDIS_PASSWORD'),
+    db: env('REDIS_DB', 1),
+  } as RedisOptions,
+
+  redisSubscriber: {
+    host: env('REDIS_HOST', 'redis'),
+    port: env<number>('REDIS_PORT', 6379),
+    username: env('REDIS_USER'),
+    password: env('REDIS_PASSWORD'),
+    db: env('REDIS_DB', 2),
+  } as RedisOptions,
+
   nats: {
     url: env<string>('NATS_URL', 'nats://nats:4222'),
   },
@@ -50,7 +69,7 @@ const config = {
   },
 };
 
-export const getRedisOptions: RedisOptions = {
+export const getRedisOptions: RedisMSOptions = {
   transport: Transport.REDIS,
   options: {
     // url: config.redis.url,

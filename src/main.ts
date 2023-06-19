@@ -6,10 +6,20 @@ import config, { getNatsOptions, getRedisOptions } from '@config';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const microservice = app.connectMicroservice(getRedisOptions);
-  const natsMicroservice = app.connectMicroservice(getNatsOptions);
+  app.connectMicroservice(getRedisOptions);
+  console.log(
+    `REDIS: microservice connected.. { ${JSON.stringify(
+      getRedisOptions.options,
+    )} }`,
+  );
 
-  console.log({ microservice, natsMicroservice });
+  app.connectMicroservice(getNatsOptions);
+
+  console.log(
+    `NATS: microservice connected.. { ${JSON.stringify(
+      getNatsOptions.options,
+    )} }`,
+  );
 
   await app.startAllMicroservices();
 

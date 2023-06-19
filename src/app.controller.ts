@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import { AppService } from './app.service';
 // import { getRedisOptions } from '@config';
-import { APP_SERVICE } from '@common/shared/constants';
+import { MESSAGE_BROKER } from '@common/constants';
 import { Controller, Get, Inject, Req } from '@nestjs/common';
 import { ClientProxy, EventPattern } from '@nestjs/microservices';
 
@@ -15,7 +15,7 @@ export class AppController {
 
   constructor(
     private readonly appService: AppService,
-    @Inject(APP_SERVICE) private client: ClientProxy,
+    @Inject(MESSAGE_BROKER) private client: ClientProxy,
   ) {}
 
   @Get()

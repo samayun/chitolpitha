@@ -7,7 +7,7 @@ import {
   MessagePattern,
 } from '@nestjs/microservices';
 import { TasksService } from './tasks.service';
-import { NATS_CLIENT } from '@nats/nats.module';
+import { NATS_CLIENT } from '@common/constants';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Controller, Get, Inject, Req } from '@nestjs/common';
@@ -15,8 +15,8 @@ import { Controller, Get, Inject, Req } from '@nestjs/common';
 @Controller('/tasks')
 export class TasksController {
   constructor(
-    @Inject(NATS_CLIENT) private client: ClientProxy,
     private tasksService: TasksService,
+    @Inject(NATS_CLIENT) private client: ClientProxy,
   ) {}
 
   @Get('/pubsub')
