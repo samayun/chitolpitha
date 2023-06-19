@@ -4,18 +4,17 @@ import { AppController } from './app.controller';
 import { AppConfigModule } from './config.module';
 import LoaderModule from '@chitolpitha/domain.loader';
 import { LoadGraphQLServer } from '@loaders/GraphQLServer';
+import { MessageBrokerModule } from '@lib/message-brokers';
 import { MESSAGE_BROKER, NATS_CLIENT } from '@common/constants';
 import config, { getNatsOptions, getRedisOptions } from '@config';
-import { NatsModule } from '@lib/message-brokers/nats/nats.module';
-import { RedisMQModule } from '@lib/message-brokers/redis/message-broker.module';
 
 @Module({
   imports: [
     AppConfigModule,
     LoadGraphQLServer,
     LoaderModule.forRoot(),
-    NatsModule.register(getNatsOptions, NATS_CLIENT),
-    RedisMQModule.register(getRedisOptions, MESSAGE_BROKER),
+    MessageBrokerModule.register(getNatsOptions, NATS_CLIENT),
+    MessageBrokerModule.register(getRedisOptions, MESSAGE_BROKER),
   ],
   controllers: [AppController],
   providers: [AppController, AppService],

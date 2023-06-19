@@ -1,4 +1,4 @@
-export const MESSAGE_BROKER = 'MESSAGE_BROKER';
+export const MESSAGE_BROKER = 'REDIS_MESSAGE_BROKER';
 
 export const NATS_CLIENT = 'NATS_CLIENT';
 

@@ -77,6 +77,7 @@ export const getRedisOptions: RedisMSOptions = {
     port: config.redis.port,
   },
 };
+
 export const getNatsOptions: NatsOptions = {
   transport: Transport.NATS,
   options: {
