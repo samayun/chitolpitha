@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.7'
 
 services:
   app:
@@ -49,7 +49,7 @@ services:
     #   restart_policy:
     #     condition: on-failure
     ports:
-      - ${REDIS_PORT:-6379}:6379
+      - ${REDIS_PORT:-6364}:6379
 
   redis-commander:
     container_name: chitolpitha-cache-admin
@@ -67,6 +67,31 @@ services:
     ports:
       - '4222:4222'
       - '8222:8222'
+
+  localstack:
+    image: localstack/localstack
+    container_name: "${LOCALSTACK_DOCKER_NAME-chitolpitha-cloud}"  
+    environment:
+      - SERVICES=s3,dynamodb
+      - DEFAULT_REGION=us-east-1
+      - AWS_DEFAULT_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=admin
+      - AWS_SECRET_ACCESS_KEY=admin
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR-}
+      - DISABLE_CORS_CHECKS=1
+      - S3_DIR=/tmp/s3-buckets
+      - S3_BUCKET=mybucket
+      - S3_PATH=/chitolpitha-uploads
+      - DATA_DIR=./volumes/localstack/data
+      - PORT_WEB_UI=9000
+      - START_WEB=1
+    ports:
+      - '4566:4566'
+      - '4571:4571'
+    volumes:
+      - "${TMPDIR:-/tmp}/localstack:/tmp/localstack"
+      - '/var/run/docker.sock:/var/run/docker.sock'
 
   # cassandra:
   #   image: cassandra:3.11

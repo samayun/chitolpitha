@@ -1,20 +1,25 @@
 import { AppService } from './app.service';
+import { AwsModule } from '@aws/aws.module';
 import { Module, Logger } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppConfigModule } from './config.module';
 import LoaderModule from '@chitolpitha/domain.loader';
 import { LoadGraphQLServer } from '@loaders/GraphQLServer';
+import { MulterModule } from '@nestjs/platform-express';
 import { MessageBrokerModule } from '@lib/message-brokers';
 import config, { getNatsOptions, getRedisOptions } from '@config';
 import { REDIS_MESSAGE_BROKER, NATS_CLIENT } from '@common/constants';
+import { FileUploadMiddleware } from '@lib/middleware/file-upload';
 
 @Module({
   imports: [
+    AwsModule,
     AppConfigModule,
     LoadGraphQLServer,
     LoaderModule.forRoot(),
     MessageBrokerModule.register(getNatsOptions, NATS_CLIENT),
     MessageBrokerModule.register(getRedisOptions, REDIS_MESSAGE_BROKER),
+    MulterModule.register(FileUploadMiddleware.multerOptions),
   ],
   controllers: [AppController],
   providers: [AppController, AppService],

@@ -13,6 +13,9 @@ up:
 down:
 	sudo docker-compose down
 
+destroy:
+	sudo docker-compose down
+
 stop:
 	sudo docker-compose stop
 

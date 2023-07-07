@@ -34,6 +34,17 @@ const config = {
     password: env('DB_PASSWORD', 'secret'),
     database: env('DB_NAME', 'test'),
   },
+  aws: {
+    region: env<string>('DEFAULT_REGION', 'us-east-1'),
+    endpoint: process.env.AWS_ENDPOINT,
+    // ...(process.env.AWS_ENDPOINT && { endpoint: process.env.AWS_ENDPOINT }),
+    accessKeyId: env<string>('AWS_ACCESS_KEY_ID', 'admin'),
+    secretAccessKey: env<string>('AWS_SECRET_ACCESS_KEY', 'admin'),
+
+    bucket: env<string>('AWS_BUCKET', 'mybucket'),
+    path: env<string>('AWS_PATH', 'chitolpitha-uploads'),
+  },
+
   redis: {
     url: env<string>('REDIS_URL'),
     host: env<string>('REDIS_HOST', 'redis'),

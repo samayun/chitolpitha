@@ -1,5 +1,6 @@
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import LoadSwaggerModule from '@loaders/swagger.module';
 import config, { getNatsOptions, getRedisOptions } from '@config';
 
@@ -22,6 +23,8 @@ async function bootstrap() {
   );
 
   await app.startAllMicroservices();
+
+  app.useGlobalPipes(new ValidationPipe());
 
   if (process.env.NODE_ENV === 'development') LoadSwaggerModule(app);
 

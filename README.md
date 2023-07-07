@@ -42,3 +42,8 @@ query {
 
 
 ```
+
+```bash
+curl http://localhost:2023/media -F 'file=@./docs/terminal.gif' -F 'name=test'
+
+```
