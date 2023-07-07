@@ -44,6 +44,17 @@ query {
 ```
 
 ```bash
-curl http://localhost:2023/media -F 'file=@./docs/terminal.gif' -F 'name=test'
+curl -X POST http://localhost:2023/media -F 'file=@./docs/terminal.gif' -F 'name=MATRIX'
+
+```
+
+
+```bash
+
+sudo aws --endpoint-url=http://localhost:4566 s3api create-bucket --bucket mybucket
+
+sudo aws --endpoint-url=http://localhost:4566 s3api list-buckets
+
+sudo aws --endpoint-url=http://localhost:4566 s3api put-bucket-acl --bucket mybucket --acl public-read
 
 ```
