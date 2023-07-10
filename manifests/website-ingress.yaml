@@ -6,13 +6,13 @@ metadata:
     app: argocdrocks
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
-    traefik.ingress.kubernetes.io/rewrite-target: /
-    traefik.ingress.kubernetes.io/use-regex: 'true'
+    ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
   - http:
       paths:
-      - path: /app
+      - path: /?(.*)
         pathType: Prefix
         backend:
           service:
