@@ -19,7 +19,3 @@ spec:
             port:
               number: 80
 
-        backend:
-          serviceName: website-service
-          servicePort: 80
-
