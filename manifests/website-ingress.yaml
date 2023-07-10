@@ -7,6 +7,7 @@ metadata:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
     traefik.ingress.kubernetes.io/rewrite-target: /
+    traefik.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
   - http:
