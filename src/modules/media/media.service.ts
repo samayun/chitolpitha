@@ -9,7 +9,6 @@ import { CreateMediaDto } from './dto/create-media.dto';
 @Injectable()
 export class MediaService {
   AWS_S3_BUCKET_IMAGE = config.aws.bucket;
-  spacesEndpoint = new AWS.Endpoint(config.aws.endpoint);
 
   s3 = new AWS.S3({
     region: config.aws.region,
@@ -19,6 +18,8 @@ export class MediaService {
     s3ForcePathStyle: true,
   });
 
+
+
   async create(mimetype: string, file: any, signedUrlInput: CreateMediaDto) {
     // FIXME: Validate type
     const type = mimetype;
@@ -27,14 +28,13 @@ export class MediaService {
       .pop()}`;
     const { createReadStream, filename } = await file;
     const fileStream = createReadStream();
-    console.log({ filename, signedUrlInput });
 
     // in case of an error, log it.
     fileStream.on('error', (error) => console.error(error));
     // s3 payload
-    const path = config.aws.path;
+    const path = process.env.DO_PATH;
     const uploadParams = {
-      Bucket: `${config.aws.bucket}/${path}`,
+      Bucket: `${process.env.DO_BUCKET}/${path}`,
       Key: Key,
       Body: '',
       ContentType: mimetype,
@@ -42,7 +42,7 @@ export class MediaService {
     };
     uploadParams.Body = fileStream;
     const upload = promisify(this.s3.upload.bind(this.s3));
-    const result = await upload(uploadParams)
+    const result: any = await upload(uploadParams)
       .then((uploading) => {
         console.log({ uploading });
         return uploading;
@@ -51,6 +51,11 @@ export class MediaService {
         // throw new Error(error.message);
         console.log(error.message);
       });
+
+    if (process.env.NODE_ENV === 'development' && result?.Location) {
+      result.Location = result?.Location?.replace('localstack', 'localhost');
+    }
+
     //imgProxy payload
     // const originalImg = new Imgproxy({
     //   baseUrl: process.env.IMGPROXY_BASE_URL,
@@ -76,12 +81,70 @@ export class MediaService {
     //   .resize('fit', 800, 800, true)
     //   .generateUrl(result.Location);
 
-    // console.log({ result });
-    //save to db
+    console.log({
+      type: signedUrlInput?.type,
+      key: Key,
+      name: filename,
+      host:
+        process.env.NODE_ENV === 'development'
+          ? result?.Location
+          : result?.Location?.split('.com')[0] + '.com',
+      path,
+      s3Url: result?.Location,
+    });
 
-    return result;
+
+    return {
+      type: signedUrlInput?.type,
+      key: Key,
+      name: filename,
+      host:
+        process.env.NODE_ENV === 'development'
+          ? result?.Location
+          : result?.Location?.split('.com')[0] + '.com',
+      path,
+      s3Url: result?.Location,
+    }
   }
 
+
+
+
+  async deleteMedia(path: string,key: string) {
+    const media = { path, key };
+
+    if (!media) throw new Error(`Failed to delete media`);
+
+    const Key = media?.path + '/' + media?.key;
+
+    await this.s3
+      .deleteObject({
+        Bucket: this.AWS_S3_BUCKET_IMAGE,
+        Key: Key,
+      })
+      .promise();
+    return `Deleted media by Key ${Key}`;
+  }
+
+  async deleteManyMedia(path: string,key: string) {
+    const media = { path, key };
+
+    const Key = media?.path + '/' + media?.key;
+
+    const deleted = await this.s3
+      .deleteObjects({
+        Bucket: this.AWS_S3_BUCKET_IMAGE,
+        Delete: {
+          Objects: [{ Key }],
+        },
+      })
+      .promise();
+
+
+    console.log({ deleted });
+
+    return `Deleted media by Key ${Key}`;
+  }
   async bucketList() {
     const listBucketsResponse = await this.s3.listBuckets().promise();
 
